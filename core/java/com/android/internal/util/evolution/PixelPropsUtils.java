@@ -66,6 +66,7 @@ public final class PixelPropsUtils {
     private static final String PACKAGE_GMS = "com.google.android.gms";
     private static final String PACKAGE_NEXUS_LAUNCHER = "com.google.android.apps.nexuslauncher";
     private static final String PACKAGE_PHOTOS = "com.google.android.apps.photos";
+    private static final String PACKAGE_SETUPWIZARD = "com.google.android.setupwizard";
     private static final String PACKAGE_SI = "com.google.android.settings.intelligence";
     private static final String PACKAGE_SNAPCHAT = "com.snapchat.android";
 
@@ -370,6 +371,12 @@ public final class PixelPropsUtils {
             return;
         }
         if (packageName.equals(PACKAGE_ARCORE)) {
+            setPropValue("FINGERPRINT", sDeviceFingerprint);
+            return;
+        }
+        // A Pixel fingerprint makes the setup wizard run the Pixel-only early update
+        // and rollback steps, which cancel the Google sign-in and loop forever
+        if (packageName.equals(PACKAGE_SETUPWIZARD)) {
             setPropValue("FINGERPRINT", sDeviceFingerprint);
             return;
         }
